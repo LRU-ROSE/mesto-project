@@ -1,0 +1,11 @@
+.footer {
+  max-width: 880px;
+  margin: 0 auto 60px;
+  /*width: calc((100vw - 320px) / (1280 - 320) * (880 - 320) + 320px);*/
+}
+
+@media (max-width: 879px) {
+  .footer {
+    margin: 0 19px 36px;
+  }
+}
