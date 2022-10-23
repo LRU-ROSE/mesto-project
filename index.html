@@ -11,92 +11,91 @@
 </head>
 
 <body class="page">
-  <div class="page__wrapper"></div>
 
-    <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Логотип Mesto">
-    </header>
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="Логотип Mesto">
+  </header>
 
-    <main class="content">
-      <section  class="profile">
-        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар профиля">
-        <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__button-edit" type="button" aria-label="Редактировать профиль"></button>
-          <p class="profile__description">Исследователь океана</p>
+  <main class="content">
+    <section  class="profile">
+      <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар профиля">
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__button-edit" type="button" aria-label="Редактировать профиль"></button>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <button class="profile__button-add" type="button" aria-label="Добавить фото"></button>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <img  class="card__image" src="./images/karachaevsk.png" alt="Карачаевск">
+        <div class="card__info">
+          <h2 class="card__title">Карачаевск</h2>
+          <button class="card__like" type="button" aria-label="Нравится"></button>
         </div>
-        <button class="profile__button-add" type="button" aria-label="Добавить фото"></button>
-      </section>
+      </article>
 
-      <section class="cards">
-        <article class="card">
-          <img  class="card__image" src="./images/karachaevsk.png" alt="Карачаевск">
-          <div class="card__info">
-            <h2 class="card__title">Карачаевск</h2>
-            <button class="card__like" aria-label="Нравится"></button>
-          </div>
-        </article>
+      <article class="card">
+        <img  class="card__image" src="./images/sunset.png" alt="Гора Эльбрус">
+        <div class="card__info">
+          <h2 class="card__title">Гора Эльбрус</h2>
+          <button class="card__like" type="button" aria-label="Нравится"></button>
+        </div>
+      </article>
 
-        <article class="card">
-          <img  class="card__image" src="./images/sunset.png" alt="Гора Эльбрус">
-          <div class="card__info">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__like" aria-label="Нравится"></button>
-          </div>
-        </article>
+      <article class="card">
+        <img  class="card__image" src="./images/mountains.png" alt="Домбай">
+        <div class="card__info">
+          <h2 class="card__title">Домбай</h2>
+          <button class="card__like" type="button" aria-label="Нравится"></button>
+        </div>
+      </article>
 
-        <article class="card">
-          <img  class="card__image" src="./images/mountains.png" alt="Домбай">
-          <div class="card__info">
-            <h2 class="card__title">Домбай</h2>
-            <button class="card__like" aria-label="Нравится"></button>
-          </div>
-        </article>
+      <article class="card">
+        <img  class="card__image" src="./images/sunset.png" alt="Гора Эльбрус">
+        <div class="card__info">
+          <h2 class="card__title">Гора Эльбрус</h2>
+          <button class="card__like" type="button" aria-label="Нравится"></button>
+        </div>
+      </article>
 
-        <article class="card">
-          <img  class="card__image" src="./images/sunset.png" alt="Гора Эльбрус">
-          <div class="card__info">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__like" aria-label="Нравится"></button>
-          </div>
-        </article>
+      <article class="card">
+        <img  class="card__image" src="./images/mountains.png" alt="Домбай">
+        <div class="card__info">
+          <h2 class="card__title">Домбай</h2>
+          <button class="card__like" type="button" aria-label="Нравится"></button>
+        </div>
+      </article>
 
-        <article class="card">
-          <img  class="card__image" src="./images/mountains.png" alt="Домбай">
-          <div class="card__info">
-            <h2 class="card__title">Домбай</h2>
-            <button class="card__like" aria-label="Нравится"></button>
-          </div>
-        </article>
+      <article class="card">
+        <img  class="card__image" src="./images/karachaevsk.png" alt="Карачаевск">
+        <div class="card__info">
+          <h2 class="card__title">Карачаевск</h2>
+          <button class="card__like" type="button" aria-label="Нравится"></button>
+        </div>
+      </article>
+    </section>
+  </main>
 
-        <article class="card">
-          <img  class="card__image" src="./images/karachaevsk.png" alt="Карачаевск">
-          <div class="card__info">
-            <h2 class="card__title">Карачаевск</h2>
-            <button class="card__like" aria-label="Нравится"></button>
-          </div>
-        </article>
-      </section>
-    </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+  </footer>
 
-    <footer class="footer">
-      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
-    </footer>
-</div>
 
-<div class="popup">
-  <div class="popup__container">
-    <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
-    <h2 class="popup__title">Редактировать профиль</h2>
-    <form class="popup__form" name="profile-data">
-      <fieldset class="popup__fieldset">
-        <input class="popup__input" type="text" name="username" placeholder="Имя пользователя" value="Жак-Ив Кусто" required>
-        <input class="popup__input" type="text" name="description" placeholder="О себе" value="Исследователь Океана">
-        <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
-      </fieldset>
-    </form>
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name="profile-data">
+        <fieldset class="popup__fieldset">
+          <input class="popup__input" type="text" name="username" placeholder="Имя пользователя" value="Жак-Ив Кусто" required>
+          <input class="popup__input" type="text" name="description" placeholder="О себе" value="Исследователь Океана">
+          <button class="popup__button-save" type="submit" aria-label="Сохранить">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
   </div>
-</div>
 
 </body>
 
