@@ -1,19 +1,19 @@
 //ОБЪВЛЕНИЕ ПЕРЕМЕННЫХ
 //Редактирование профиля
-const editProfileButton = document.querySelector('.profile__button-edit');
-const editProfilePopup = document.querySelector('.popup_type_edit-profile');
-const editProfileForm = editProfilePopup.querySelector('.popup__form');
+const buttonEditProfile = document.querySelector('.profile__button-edit');
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const formEditProfile = popupEditProfile.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
-const userNameProfileInput = editProfilePopup.querySelector('#userName-input');
-const descProfileInput = editProfilePopup.querySelector('#description-input');
+const userNameProfileInput = popupEditProfile.querySelector('#userName-input');
+const descProfileInput = popupEditProfile.querySelector('#description-input');
 //Добавления карточек с фото
-const addCardButton = document.querySelector('.profile__button-add');
-const addCardPopup = document.querySelector('.popup_type_add-card');
-const addCardForm = addCardPopup.querySelector('.popup__form');
-const nameCardInput = addCardPopup.querySelector('#placeName-input');
-const imageCardInput = addCardPopup.querySelector('#placeSrc-input');
-const popupSubmit = addCardPopup.querySelector('.popup__button-save');
+const buttonAddCard = document.querySelector('.profile__button-add');
+const popupAddCard = document.querySelector('.popup_type_add-card');
+const formAddCard = popupAddCard.querySelector('.popup__form');
+const nameCardInput = popupAddCard.querySelector('#placeName-input');
+const imageCardInput = popupAddCard.querySelector('#placeSrc-input');
+const popupSubmit = popupAddCard.querySelector('.popup__button-save');
 const cardsSection = document.querySelector('.cards')
 const cardTemplate = document.querySelector('#card-template').content;
 //Popup режима просмотра(увеличения) картинки
@@ -23,7 +23,7 @@ const viewCaption = modeMediaView.querySelector('.popup__view-caption');
 
 //Общие переменные
 const popupElements = document.querySelectorAll('.popup');
-const closePopupButton = document.querySelectorAll('.popup__button-close');
+const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 
 //Функционал
 //
@@ -36,14 +36,14 @@ const openPopup = function (popupName) {
 const openProfilePopup = function () {
   userNameProfileInput.value = profileName.textContent;
   descProfileInput.value = profileDescription.textContent;
-  openPopup(editProfilePopup);
+  openPopup(popupEditProfile);
 };
 
 //Слушатель открытия popup редактирования профиля
-editProfileButton.addEventListener('click', openProfilePopup);
+buttonEditProfile.addEventListener('click', openProfilePopup);
 //Слушатель открытия popup добавления карточки
-addCardButton.addEventListener('click', function () {
-  openPopup(addCardPopup);
+buttonAddCard.addEventListener('click', function () {
+  openPopup(popupAddCard);
 });
 
 //Функция закрытия всех popup
@@ -51,7 +51,7 @@ const closePopup = function (popupName) {
   popupName.classList.remove('popup_opened');
 };
 //Обработчик закрытия всех popup
-closePopupButton.forEach((button) => {
+popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
@@ -61,10 +61,10 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = userNameProfileInput.value;
   profileDescription.textContent = descProfileInput.value;
-  closePopup(editProfilePopup);
+  closePopup(popupEditProfile);
 };
 //Обновление данных профиля при нажатии кнопки сохранения
-editProfileForm.addEventListener('submit', handleProfileFormSubmit);
+formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 //Функция добавления карточек
 const addCard = function (name, link) {
@@ -110,7 +110,7 @@ const renderInitialCards = function () {
     evt.preventDefault();
     cardsSection.prepend(addCard(nameCardInput.value, imageCardInput.value));
     evt.target.reset()
-    closePopup(addCardPopup);
+    closePopup(popupAddCard);
   };
   //Обновление данных при нажатии кнопки создания карточки
-  addCardForm.addEventListener('submit', generateNewCard);
+  formAddCard.addEventListener('submit', generateNewCard);
