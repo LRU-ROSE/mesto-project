@@ -1,19 +1,19 @@
-//ОБЪВЛЕНИЕ ПЕРЕМЕННЫХ
+
 //Редактирование профиля
 const buttonEditProfile = document.querySelector('.profile__button-edit');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
-const userNameProfileInput = popupEditProfile.querySelector('#userName-input');
+const userNameProfileInput = popupEditProfile.querySelector('#username-input');
 const descProfileInput = popupEditProfile.querySelector('#description-input');
 //Добавления карточек с фото
 const buttonAddCard = document.querySelector('.profile__button-add');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const formAddCard = popupAddCard.querySelector('.popup__form');
-const nameCardInput = popupAddCard.querySelector('#placeName-input');
-const imageCardInput = popupAddCard.querySelector('#placeSrc-input');
-const popupSubmit = popupAddCard.querySelector('.popup__button-save');
+const nameCardInput = popupAddCard.querySelector('#place-name-input');
+const imageCardInput = popupAddCard.querySelector('#placesrc-input');
+const popupSubmit = popupAddCard.querySelector('.popup__submit');
 const cardsSection = document.querySelector('.cards')
 const cardTemplate = document.querySelector('#card-template').content;
 //Popup режима просмотра(увеличения) картинки
@@ -30,6 +30,7 @@ const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 //Функция открытия всех popup
 const openPopup = function (popupName) {
   popupName.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupOnEsc);
 };
 
 //Функция открытия popup редактирования профиля
@@ -49,11 +50,30 @@ buttonAddCard.addEventListener('click', function () {
 //Функция закрытия всех popup
 const closePopup = function (popupName) {
   popupName.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupOnEsc);
 };
+
+//Функция закрытия popup на Esc
+const closePopupOnEsc = (evt) => {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+};
+
 //Обработчик закрытия всех popup
 popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
+});
+
+//Обработчик закрытия popup кликом на overlay
+popupElements.forEach((popupElements) => {
+  popupElements.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popupElements);
+    }
+  });
 });
 
 //Функция сохранения новых данных профиля (Имя, О себе)
