@@ -1,4 +1,3 @@
-
 //Редактирование профиля
 const buttonEditProfile = document.querySelector('.profile__button-edit');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
