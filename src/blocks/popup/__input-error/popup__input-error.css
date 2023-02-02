@@ -3,7 +3,7 @@
   margin: 0 0 3px;
   display: block;
   box-sizing: border-box;
-  visibility: visible;
+  visibility: hidden;
   min-height: 32px;
   color: #ff0000;
   font-weight: 400;

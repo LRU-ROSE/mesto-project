@@ -1,14 +1,3 @@
-const classList = {
-  //Форма, инпут, конопка отправки
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  //Cкрытие кнопки, оформления текста ошибкок и скрытие ошибок
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input_type_visible',
-};
-
 const showValidationError = function (formItem, inputItem, errorMessage, settings) {
   const errorItem = formItem.querySelector(`.${inputItem.id}-error`)
   inputItem.classList.add(settings.inputErrorClass);
@@ -73,11 +62,11 @@ const setEventListeners = function (formItem, settings) {
   });
 };
 
-const enableValidation = function (settings) {
+const enableValidation = (settings) => {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formItem) => {
     setEventListeners(formItem, settings);
   });
 };
 
-enableValidation(classList);
+export { enableValidation };

@@ -1,3 +1,10 @@
+//Импорт скриптов
+import { classList, initialCards} from './components/untils/utils.js';
+import { enableValidation } from './components/validation.js';
+import { openPopup, closePopup } from './components/modal.js';
+import { addCard } from './components/Card.js';
+//Импорт стилей
+import './pages/index.css';
 //Редактирование профиля
 const buttonEditProfile = document.querySelector('.profile__button-edit');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
@@ -14,23 +21,15 @@ const nameCardInput = popupAddCard.querySelector('#place-name-input');
 const imageCardInput = popupAddCard.querySelector('#placesrc-input');
 const popupSubmit = popupAddCard.querySelector('.popup__submit');
 const cardsSection = document.querySelector('.cards')
-const cardTemplate = document.querySelector('#card-template').content;
-//Popup режима просмотра(увеличения) картинки
-const modeMediaView = document.querySelector('.popup_mode_media-view');
-const viewImage = modeMediaView.querySelector('.popup__view-image');
-const viewCaption = modeMediaView.querySelector('.popup__view-caption');
 
 //Общие переменные
 const popupElements = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 
 //Функционал
-//
-//Функция открытия всех popup
-const openPopup = function (popupName) {
-  popupName.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupOnEsc);
-};
+
+//Вызов функции валидации
+enableValidation(classList);
 
 //Функция открытия popup редактирования профиля
 const openProfilePopup = function () {
@@ -45,20 +44,6 @@ buttonEditProfile.addEventListener('click', openProfilePopup);
 buttonAddCard.addEventListener('click', function () {
   openPopup(popupAddCard);
 });
-
-//Функция закрытия всех popup
-const closePopup = function (popupName) {
-  popupName.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupOnEsc);
-};
-
-//Функция закрытия popup на Esc
-const closePopupOnEsc = (evt) => {
-  if (evt.key === "Escape") {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-};
 
 //Обработчик закрытия всех popup
 popupCloseButtons.forEach((button) => {
@@ -85,37 +70,6 @@ function handleProfileFormSubmit(evt) {
 //Обновление данных профиля при нажатии кнопки сохранения
 formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
-//Функция добавления карточек
-const addCard = function (name, link) {
-  const cardElementClone = cardTemplate.querySelector('.card').cloneNode(true);
-  const cardImage = cardElementClone.querySelector('.card__image');
-  const cardTitle = cardElementClone.querySelector('.card__title');
-
-  cardTitle.textContent = name;
-  cardImage.src = link;
-  cardImage.alt = name;
-
-  //Удаление карточек
-  cardElementClone.querySelector('.card__button-delete').addEventListener('click', function (evt) {
-    evt.target.closest('.card').remove();
-  });
-  //Лайк карточек
-  cardElementClone.querySelector('.card__button-like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__button-like_active');
-  });
-
-  //Режим просмотра(увеличения) картинки
-  const getModeMediaView = function () {
-    viewCaption.textContent = name;
-    viewImage.src = link;
-    viewImage.alt = name;
-    openPopup(modeMediaView);
-  };
-
-  cardImage.addEventListener('click', getModeMediaView);
-
-  return cardElementClone;
-}
 //Функция добавления стартовых карточек
 const renderInitialCards = function () {
   initialCards.forEach(function (card) {
