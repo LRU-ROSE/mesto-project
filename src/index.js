@@ -1,8 +1,8 @@
 //Импорт скриптов
 import { classList, initialCards} from './components/untils/utils.js';
-import { enableValidation } from './components/validation.js';
+import { enableValidation, toggleButtonState } from './components/validation.js';
 import { openPopup, closePopup } from './components/modal.js';
-import { addCard } from './components/Card.js';
+import { addCard } from './components/card.js';
 //Импорт стилей
 import './pages/index.css';
 //Редактирование профиля
@@ -52,10 +52,10 @@ popupCloseButtons.forEach((button) => {
 });
 
 //Обработчик закрытия popup кликом на overlay
-popupElements.forEach((popupElements) => {
-  popupElements.addEventListener('mousedown', (evt) => {
+popupElements.forEach((popupElement) => {
+  popupElement.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popupElements);
+      closePopup(popupElement);
     }
   });
 });
@@ -84,6 +84,8 @@ const renderInitialCards = function () {
     cardsSection.prepend(addCard(nameCardInput.value, imageCardInput.value));
     evt.target.reset()
     closePopup(popupAddCard);
+    //Деактивируем кнопку "Создать" после добавления карточки
+    toggleButtonState(formAddCard, popupSubmit, classList);
   };
   //Обновление данных при нажатии кнопки создания карточки
   formAddCard.addEventListener('submit', generateNewCard);

@@ -19,6 +19,12 @@ const hideValidationError = function (formItem, inputItem, settings) {
 
 //Функция проверки валидации форм
 const checkInputValidity = function (formItem, inputItem, settings) {
+    if (inputItem.validity.patternMismatch) {
+    inputItem.setCustomValidity(inputItem.dataset.invalidMessage);
+  } else {
+    inputItem.setCustomValidity("");
+  }
+
   if (!inputItem.validity.valid) {
     showValidationError(formItem, inputItem, inputItem.validationMessage, settings);
   } else {
@@ -69,4 +75,4 @@ const enableValidation = (settings) => {
   });
 };
 
-export { enableValidation };
+export { enableValidation, toggleButtonState };

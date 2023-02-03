@@ -1,5 +1,6 @@
 import { openPopup } from "./modal.js";
 
+const cardTemplate = document.querySelector('#card-template').content;
 //Popup режима просмотра(увеличения) картинки
 const modeMediaView = document.querySelector('.popup_mode_media-view');
 const viewImage = modeMediaView.querySelector('.popup__view-image');
@@ -7,7 +8,6 @@ const viewCaption = modeMediaView.querySelector('.popup__view-caption');
 
 //Функция добавления карточек
 const addCard = function (name, link) {
-  const cardTemplate = document.querySelector('#card-template').content;
   const cardElementClone = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = cardElementClone.querySelector('.card__image');
   const cardTitle = cardElementClone.querySelector('.card__title');
