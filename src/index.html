@@ -17,7 +17,10 @@
 
   <main class="content">
     <section  class="profile">
-      <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля">
+      <div class="profile__avatar-wrapper">
+        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля">
+        <button class="profile__edit-avatar-btn" type="button" aria-label="Изменить аватар"></button>
+      </div>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button class="profile__button-edit" type="button" aria-label="Редактировать профиль"></button>
@@ -78,6 +81,30 @@
     </div>
   </div>
 
+  <!--Popup подтверждение удаления карточки-->
+  <div class="popup" id="card-delete">
+    <div class="popup__container">
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form class="popup__form" name="card-delete" novalidate>
+          <button class="popup__submit" type="submit" aria-label="Да">Да</button>
+      </form>
+    </div>
+  </div>
+
+  <!--Popup обновления аватара-->
+  <div class="popup" id="popup-edit-avatar">
+    <div class="popup__container">
+      <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="user-avatar" novalidate>
+          <input class="popup__input" type="url" name="place-image" id="avatarsrc-input" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error placesrc-input-error"></span>
+          <button class="popup__submit" type="submit" aria-label="Создать">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <!--Шаблон для создания карточки-->
   <template id="card-template">
     <article class="card">
@@ -85,7 +112,10 @@
       <img  class="card__image" src="#" alt="">
       <div class="card__info">
         <h2 class="card__title"></h2>
-        <button class="card__button-like" type="button" aria-label="Нравится"></button>
+        <div class="card__like-wrapper">
+          <button class="card__button-like" type="button" aria-label="Нравится"></button>
+          <span class="card__like-counter"></span>
+        </div>
       </div>
     </article>
   </template>
