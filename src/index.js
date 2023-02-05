@@ -81,6 +81,8 @@ popupElements.forEach((popupElement) => {
   });
 });
 
+/*Отключает кнопку на момент отправки формы, возвращает функцию,
+ которая при вызове восстанавливает изначальное состояние кнопки*/
 const setButtonBusy = (buttonEl, text) => {
   const oldText = buttonEl.textContent;
   buttonEl.textContent = text;
