@@ -51,7 +51,6 @@ enableValidation(classList);
 
 // Слушатель открытия popup редактирования аватара
 buttonEditAvatar.addEventListener('click', function () {
-  sourceAvatarInput.value = profileAvatar.src;
   openPopup(popupEditAvatar);
 });
 
@@ -82,24 +81,42 @@ popupElements.forEach((popupElement) => {
   });
 });
 
+const setButtonBusy = (buttonEl, text) => {
+  const oldText = buttonEl.textContent;
+  buttonEl.textContent = text;
+  buttonEl.disabled = true;
+  return () => {
+    buttonEl.textContent = oldText;
+    buttonEl.disabled = false;
+  };
+};
+
 // Функция загрузки и добавления стартовых карточек
 const renderInitialCards = function (myUserId) {
-  return getInitialCards().then((data) => {
-    cardsSection.innerHTML = '';
-    data.forEach(function (card) {
-      cardsSection.append(addCard(card, myUserId));
+  getInitialCards()
+    .then((data) => {
+      cardsSection.innerHTML = '';
+      data.forEach(function (card) {
+        cardsSection.append(addCard(card, myUserId));
+      });
+    })
+    .catch((error) => {
+      console.error(`Ошибка получения карточек: ${error}`);
     });
-  });
 };
 
 // Функция загрузки и добавления данных пользователя
 const getUser = function () {
-  return getCurrentUser().then((userData) => {
-    profileName.textContent = userData.name;
-    profileDescription.textContent = userData.about;
-    profileAvatar.src = userData.avatar;
-    return userData._id;
-  });
+  return getCurrentUser()
+    .then((userData) => {
+      profileName.textContent = userData.name;
+      profileDescription.textContent = userData.about;
+      profileAvatar.src = userData.avatar;
+      return userData._id;
+    })
+    .catch((error) => {
+      console.error(`Ошибка получения данных пользователя: ${error}`);
+    });
 };
 
 getUser().then((myUserId) => {
@@ -108,8 +125,7 @@ getUser().then((myUserId) => {
   //Функция сохранения данных карточки
   const generateNewCard = function (evt) {
     evt.preventDefault();
-    const oldText = popupSubmit.textContent;
-    popupSubmit.textContent = 'Создание...';
+    const revertButton = setButtonBusy(popupSubmit, 'Создание...');
     sendNewCard(nameCardInput.value, imageCardInput.value)
       .then((newCard) => {
         cardsSection.prepend(addCard(newCard, myUserId));
@@ -118,7 +134,7 @@ getUser().then((myUserId) => {
         console.error(`Ошибка отправки карточки: ${error}`);
       })
       .finally(() => {
-        popupSubmit.textContent = oldText;
+        revertButton();
         closePopup(popupAddCard);
         evt.target.reset()
         //Деактивируем кнопку "Создать" после добавления карточки
@@ -127,15 +143,12 @@ getUser().then((myUserId) => {
   };
   //Обновление данных при нажатии кнопки создания карточки
   formAddCard.addEventListener('submit', generateNewCard);
-}).catch((error) => {
-  console.error(error);
 });
 
 //Функция сохранения новых данных профиля (Имя, О себе)
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  const oldText = profileEditSubmit.textContent;
-  profileEditSubmit.textContent = 'Сохранение...';
+  const revertButton = setButtonBusy(profileEditSubmit, 'Сохранение...');
   sendUpdateUser(userNameProfileInput.value, descProfileInput.value)
   .then((userData) => {
     profileName.textContent = userData.name;
@@ -145,7 +158,7 @@ function handleProfileFormSubmit(evt) {
     console.error(`Ошибка обновления пользователя: ${error}`);
   })
   .finally(() => {
-    profileEditSubmit.textContent = oldText;
+    revertButton();
     closePopup(popupEditProfile);
   });
 };
@@ -155,8 +168,7 @@ formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 //Функция сохранения новой аватарки
 function handleEditAvatarSubmit(evt) {
   evt.preventDefault();
-  const oldText = avatarEditSubmit.textContent;
-  avatarEditSubmit.textContent = 'Сохранение...';
+  const revertButton = setButtonBusy(avatarEditSubmit, 'Сохранение...');
   sendUpdateAvatar(sourceAvatarInput.value)
   .then((userData) => {
     profileAvatar.src = userData.avatar;
@@ -165,8 +177,9 @@ function handleEditAvatarSubmit(evt) {
     console.error(`Ошибка обновления аватара: ${error}`);
   })
   .finally(() => {
-    avatarEditSubmit.textContent = oldText;
+    revertButton();
     closePopup(popupEditAvatar);
+    evt.target.reset()
   });
 };
 //Обновление данных профиля при нажатии кнопки сохранения

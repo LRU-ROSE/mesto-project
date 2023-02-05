@@ -17,14 +17,14 @@ const likeCardHandler = (evt) => {
   const isCurrentlyLiked = likeButtonEl.classList.contains('card__button-like_active');
 
   sendLikeCard(cardId, !isCurrentlyLiked)
-  .then((card) => {
-    likeButtonEl.classList.toggle('card__button-like_active');
-    const likeCounterEl = cardEl.querySelector('.card__like-counter');
-    likeCounterEl.textContent = card.likes.length;
-  })
-  .catch((error) => {
-    console.error(`Не удалось лайкнуть: ${error}`);
-  });
+    .then((card) => {
+      likeButtonEl.classList.toggle('card__button-like_active');
+      const likeCounterEl = cardEl.querySelector('.card__like-counter');
+      likeCounterEl.textContent = card.likes.length;
+    })
+    .catch((error) => {
+      console.error(`Не удалось лайкнуть: ${error}`);
+    });
 };
 
 // Функция добавления карточек
@@ -83,16 +83,16 @@ popupDeletingCard.querySelector('.popup__submit').addEventListener('click', func
   evt.preventDefault();
   const cardId = popupDeletingCard.getAttribute('data-delete-id');
   sendDeleteCard(cardId)
-  .then(() => {
-    const cardEl = document.querySelector(`.card[card-id="${cardId}"]`);
-    cardEl.remove();
-  })
-  .catch((e) => {
-    console.error(e);
-  })
-  .finally(() => {
-    closePopup(popupDeletingCard);
-  });
+    .then(() => {
+      const cardEl = document.querySelector(`.card[card-id="${cardId}"]`);
+      cardEl.remove();
+    })
+    .catch((e) => {
+      console.error(e);
+    })
+    .finally(() => {
+      closePopup(popupDeletingCard);
+    });
 });
 
 export { addCard };
