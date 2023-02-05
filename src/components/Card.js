@@ -1,4 +1,5 @@
 import { openPopup } from "./modal.js";
+import { closePopup } from "./modal.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
 //Popup режима просмотра(увеличения) картинки
@@ -18,8 +19,19 @@ const addCard = function (name, link) {
 
   //Удаление карточек
   cardElementClone.querySelector('.card__button-delete').addEventListener('click', function (evt) {
-    evt.target.closest('.card').remove();
+    const cardToDelete = evt.target.closest('.card');
+    const popupDeletingCard = document.querySelector('#card-delete');
+
+    openPopup(popupDeletingCard);
+
+    popupDeletingCard.querySelector('.popup__submit').addEventListener('click', function (evt) {
+      evt.preventDefault();
+      cardToDelete.remove();
+      closePopup(popupDeletingCard);
+    });
   });
+
+
   //Лайк карточек
   cardElementClone.querySelector('.card__button-like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__button-like_active');
