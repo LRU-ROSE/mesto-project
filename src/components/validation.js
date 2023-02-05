@@ -7,7 +7,7 @@ const showValidationError = function (formItem, inputItem, errorMessage, setting
   errorItem.classList.add(settings.errorClass);
 };
 
-//Скрытие ошибок валидации
+// Скрытие ошибок валидации
 const hideValidationError = function (formItem, inputItem, settings) {
   const errorItem = formItem.querySelector(`.${inputItem.id}-error`)
   inputItem.classList.remove(settings.inputErrorClass);
@@ -17,7 +17,7 @@ const hideValidationError = function (formItem, inputItem, settings) {
   errorItem.textContent = '';
 };
 
-//Функция проверки валидации форм
+// Функция проверки валидации форм
 const checkInputValidity = function (formItem, inputItem, settings) {
     if (inputItem.validity.patternMismatch) {
     inputItem.setCustomValidity(inputItem.dataset.invalidMessage);
@@ -32,14 +32,14 @@ const checkInputValidity = function (formItem, inputItem, settings) {
   }
 };
 
-//Функция проверки input на ошибки
+// Функция проверки input на ошибки
 const hasInvalidInput = function (inputList) {
   return inputList.some((item) => {
     return !item.validity.valid;
   });
 };
 
-//Функция состояния кнопки submit
+// Функция состояния кнопки submit
 const toggleButtonState = function (formItem, buttonItem, settings) {
   const inputList = Array.from(formItem.querySelectorAll(settings.inputSelector));
   if (hasInvalidInput(inputList)) {
@@ -53,7 +53,7 @@ const toggleButtonState = function (formItem, buttonItem, settings) {
   }
 };
 
-//Функция добаления обработчиков input
+// Функция добаления обработчиков input
 const setEventListeners = function (formItem, settings) {
   const inputList = Array.from(formItem.querySelectorAll(settings.inputSelector));
   const buttonItem = formItem.querySelector(settings.submitButtonSelector);

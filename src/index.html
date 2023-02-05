@@ -18,18 +18,19 @@
   <main class="content">
     <section  class="profile">
       <div class="profile__avatar-wrapper">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля">
+        <img class="profile__avatar" src="#" alt="Аватар профиля">
         <button class="profile__edit-avatar-btn" type="button" aria-label="Изменить аватар"></button>
       </div>
       <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <h1 class="profile__name">████ ███</h1>
         <button class="profile__button-edit" type="button" aria-label="Редактировать профиль"></button>
-        <p class="profile__description">Исследователь океана</p>
+        <p class="profile__description">████ ████ ██ █████</p>
       </div>
       <button class="profile__button-add" type="button" aria-label="Добавить фото"></button>
     </section>
 
     <section class="cards">
+      <p class="cards__loading">Загрузка...</p>
     </section>
   </main>
 
@@ -72,7 +73,7 @@
 
   <!--Открытие popup с картинкой-->
   <div class="popup popup_mode_media-view">
-    <div class="popup__view-сontent">
+    <div class="popup__view-content">
       <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
       <figure class="popup__view-figure">
         <img  class="popup__view-image" src="" alt="">
@@ -85,10 +86,8 @@
   <div class="popup" id="card-delete">
     <div class="popup__container">
       <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
-      <h2 class="popup__title">Вы уверены?</h2>
-      <form class="popup__form" name="card-delete" novalidate>
-          <button class="popup__submit" type="submit" aria-label="Да">Да</button>
-      </form>
+      <h2 class="popup__title popup__title_no-margin">Вы уверены?</h2>
+      <button class="popup__submit" type="button" aria-label="Да">Да</button>
     </div>
   </div>
 
@@ -99,7 +98,7 @@
       <h2 class="popup__title">Обновить аватар</h2>
       <form class="popup__form" name="user-avatar" novalidate>
           <input class="popup__input" type="url" name="place-image" id="avatarsrc-input" placeholder="Ссылка на картинку" required>
-          <span class="popup__input-error placesrc-input-error"></span>
+          <span class="popup__input-error avatarsrc-input-error"></span>
           <button class="popup__submit" type="submit" aria-label="Создать">Сохранить</button>
       </form>
     </div>

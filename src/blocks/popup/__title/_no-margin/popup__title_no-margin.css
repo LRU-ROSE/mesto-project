@@ -1,0 +1,5 @@
+@media (max-width: 920px) {
+  .popup__title_no-margin {
+    margin: 0;
+  }
+}

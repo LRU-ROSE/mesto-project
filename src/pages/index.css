@@ -22,6 +22,7 @@
 
 /*Стили секции  с карточками*/
 @import url(../blocks/cards/cards.css);
+@import url(../blocks/cards/__loading/cards__loading.css);
 
 /*Стили Карточек*/
 @import url(../blocks/card/card.css);
@@ -47,6 +48,7 @@
 @import url(../blocks/popup/__submit/popup__submit.css);
 @import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
 @import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__title/_no-margin/popup__title_no-margin.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input-error/popup__input-error.css);
@@ -54,7 +56,7 @@
 @import url(../blocks/popup/__input/_type/popup__input_type_visible.css);
 /*Стили режима просмотра картинки в card*/
 @import url(../blocks/popup/_mode/popup_mode_media-view.css);
-@import url(../blocks/popup/__view-сontent/popup__view-сontent.css);
+@import url(../blocks/popup/__view-content/popup__view-content.css);
 @import url(../blocks/popup/__view-figure/popup__view-figure.css);
 @import url(../blocks/popup/__view-image/popup__view-image.css);
 @import url(../blocks/popup/__view-caption/popup__view-caption.css);
