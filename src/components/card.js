@@ -86,12 +86,10 @@ popupDeletingCard.querySelector('.popup__submit').addEventListener('click', func
     .then(() => {
       const cardEl = document.querySelector(`.card[card-id="${cardId}"]`);
       cardEl.remove();
+      closePopup(popupDeletingCard);
     })
     .catch((e) => {
       console.error(e);
-    })
-    .finally(() => {
-      closePopup(popupDeletingCard);
     });
 });
 

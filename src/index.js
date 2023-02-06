@@ -131,16 +131,16 @@ getUser().then((myUserId) => {
     sendNewCard(nameCardInput.value, imageCardInput.value)
       .then((newCard) => {
         cardsSection.prepend(addCard(newCard, myUserId));
+        closePopup(popupAddCard);
+        evt.target.reset();
+        //Деактивируем кнопку "Создать" после добавления карточки
+        toggleButtonState(formAddCard, popupSubmit, classList);
       })
       .catch((error) => {
         console.error(`Ошибка отправки карточки: ${error}`);
       })
       .finally(() => {
         revertButton();
-        closePopup(popupAddCard);
-        evt.target.reset()
-        //Деактивируем кнопку "Создать" после добавления карточки
-        toggleButtonState(formAddCard, popupSubmit, classList);
       });
   };
   //Обновление данных при нажатии кнопки создания карточки
@@ -155,13 +155,13 @@ function handleProfileFormSubmit(evt) {
   .then((userData) => {
     profileName.textContent = userData.name;
     profileDescription.textContent = userData.about;
+    closePopup(popupEditProfile);
   })
   .catch((error) => {
     console.error(`Ошибка обновления пользователя: ${error}`);
   })
   .finally(() => {
     revertButton();
-    closePopup(popupEditProfile);
   });
 };
 //Обновление данных профиля при нажатии кнопки сохранения
@@ -174,14 +174,14 @@ function handleEditAvatarSubmit(evt) {
   sendUpdateAvatar(sourceAvatarInput.value)
   .then((userData) => {
     profileAvatar.src = userData.avatar;
+    closePopup(popupEditAvatar);
+    evt.target.reset();
   })
   .catch((error) => {
     console.error(`Ошибка обновления аватара: ${error}`);
   })
   .finally(() => {
     revertButton();
-    closePopup(popupEditAvatar);
-    evt.target.reset()
   });
 };
 //Обновление данных профиля при нажатии кнопки сохранения
