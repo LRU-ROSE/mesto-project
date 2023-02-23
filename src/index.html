@@ -39,7 +39,7 @@
   </footer>
 
   <!--Popup редактирования профиля: имя пользователя, описание-->
-  <div class="popup popup_type_edit-profile" novalidate>
+  <div class="popup" novalidate id="popup-edit-profile">
     <div class="popup__container">
       <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -56,7 +56,7 @@
   </div>
 
   <!--Popup добавления карточек: название, ссылка-->
-  <div class="popup popup_type_add-card">
+  <div class="popup" id="popup-add-card">
     <div class="popup__container">
       <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Новое место</h2>
@@ -83,7 +83,7 @@
   </div>
 
   <!--Popup подтверждение удаления карточки-->
-  <div class="popup" id="card-delete">
+  <div class="popup" id="popup-delete-card">
     <div class="popup__container">
       <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title popup__title_no-margin">Вы уверены?</h2>
@@ -97,7 +97,7 @@
       <button class="popup__button-close" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Обновить аватар</h2>
       <form class="popup__form" name="user-avatar" novalidate>
-          <input class="popup__input" type="url" name="place-image" id="avatarsrc-input" placeholder="Ссылка на картинку" required>
+          <input class="popup__input" type="url" name="avatar" id="avatarsrc-input" placeholder="Ссылка на картинку" required>
           <span class="popup__input-error avatarsrc-input-error"></span>
           <button class="popup__submit" type="submit" aria-label="Создать">Сохранить</button>
       </form>
