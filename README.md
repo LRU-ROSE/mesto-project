@@ -22,4 +22,6 @@
   * Popup
 
 
+Проект данного стринта выполняли с напарником: [Dmitry Ivanov][Dmitry Ivanov](dmitryi414@yandex.ru).
 
+[Dmitry Ivanov]: https://github.com/Ivanov-DM
