@@ -6,6 +6,8 @@ export default class FormValidator {
     this._showErrorClass = showErrorClass;
     this._inactiveButtonClass = inactiveButtonClass;
     this._inputEls = Array.from(this._formEl.querySelectorAll(inputSelector));
+
+    this._submitText = this._submitEl.textContent;
   }
 
   _showValidationError(inputEl) {
@@ -72,5 +74,18 @@ export default class FormValidator {
       this._checkInput(inputEl, false);
     }
     this._updateSubmitButton();
+  }
+
+  /* Отключает кнопку на момент отправки формы */
+  setSubmitBusyState(busyText) {
+    this._submitText = this._submitEl.textContent;
+    this._submitEl.textContent = busyText;
+    this._submitEl.disabled = true;
+  }
+
+  /* Восстанавливает изначальное состояние кнопки после отправки */
+  restoreSubmitState() {
+    this._submitEl.textContent = this._submitText;
+    this._submitEl.disabled = false;
   }
 }

@@ -4,13 +4,13 @@ export default class PopupWithConfirmation extends Popup {
   constructor(selector) {
     super(selector);
 
-    this._handleConfirm = null;
+    this._handleFinish = null;
   }
 
   _confirm(isAgreed) {
-    if (this._handleConfirm) {
-      this._handleConfirm(isAgreed);
-      this._handleConfirm = null;
+    if (this._handleFinish) {
+      this._handleFinish(isAgreed);
+      this._handleFinish = null;
     }
   }
 
@@ -25,17 +25,14 @@ export default class PopupWithConfirmation extends Popup {
     });
   }
 
-  open() {
+  open(handleFinish) {
     this._confirm(false);
+    this._handleFinish = handleFinish;
     super.open();
-    return new Promise((resolve) => {
-      this._handleConfirm = resolve;
-    });
   }
 
   close() {
     super.close();
     this._confirm(false);
   }
-
 }

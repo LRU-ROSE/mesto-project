@@ -4,7 +4,7 @@ export default class Api {
     this._headers = headers;
   }
 
-  // обработка ответа сервера
+  // Обработка ответа сервера
   static _getJson(res) {
     if (res.ok) {
       return res.json();

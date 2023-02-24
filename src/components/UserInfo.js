@@ -11,7 +11,7 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    return this._userInfo;
+      return this._userInfo;
   }
 
   setUserInfo(userData) {

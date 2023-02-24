@@ -9,31 +9,15 @@ export default class PopupWithForm extends Popup {
     this._submitBusyText = submitBusyText;
 
     this._formEl = this._popupEl.querySelector('.popup__form');
-
-    this._submitEl = this._formEl.querySelector('.popup__submit');
-    this._submitText = this._submitEl.textContent;
+    this._inputs = this._formEl.querySelectorAll('.popup__input');
 
     this._captionEl = this._popupEl.querySelector('.popup__view-caption');
 
     this._validator = initValidator(this._formEl);
   }
 
-  /* Отключает кнопку на момент отправки формы */
-  _setSubmitBusyState() {
-    this._submitText = this._submitEl.textContent;
-    this._submitEl.textContent = this._submitBusyText;
-    this._submitEl.disabled = true;
-  }
-
-  /* Восстанавливает изначальное состояние кнопки после отправки */
-  _restoreSubmitState() {
-    this._submitEl.textContent = this._submitText;
-    this._submitEl.disabled = false;
-  }
-
   _getInputValues() {
-    const inputs = this._formEl.querySelectorAll('.popup__input');
-    return Object.fromEntries(Array.from(inputs).map((el) => [el.name, el]));
+    return Object.fromEntries(Array.from(this._inputs).map((el) => [el.name, el.value]));
   }
 
   setEventListeners() {
@@ -41,14 +25,14 @@ export default class PopupWithForm extends Popup {
 
     this._formEl.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._setSubmitBusyState();
-      this._handleSubmit(this._getInputValues()).finally(() => this._restoreSubmitState());
+      this._validator.setSubmitBusyState(this._submitBusyText);
+      this._handleSubmit(this._getInputValues(), () => this._validator.restoreSubmitState());
     });
   }
 
   open() {
     if (this._handleOpen) {
-      this._handleOpen(this._getInputValues());
+      this._handleOpen(this._formEl.elements);
     }
     this._validator.reset();
     super.open();

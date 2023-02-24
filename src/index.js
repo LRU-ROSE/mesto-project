@@ -32,20 +32,26 @@ const createCard = (data, currentUserId) => {
     handleCardClick(name, link) {
       popupWithImage.open(name, link);
     },
-    async handleCardDelete(cardId) {
-      const isAgreed = await popupWithConfirm.open();
-      if (isAgreed) {
-        try {
-          await api.sendDeleteCard(cardId);
-          card.remove();
-          popupWithConfirm.close();
-        } catch (error) {
-          console.error(`Ошибка при удалении: ${error}`)
+    handleCardDelete(cardId) {
+      popupWithConfirm.open((isAgreed) => {
+        if (isAgreed) {
+          api.sendDeleteCard(cardId)
+            .then(() => {
+              card.remove();
+              popupWithConfirm.close();
+            })
+            .catch((error) => console.error(`Ошибка при удалении: ${error}`));
         }
-      }
+      });
     },
-    sendCardLike(cardId, likeState) {
-      return api.sendLikeCard(cardId, likeState);
+    handleCardLike(cardId, likeState) {
+      api.sendLikeCard(cardId, likeState)
+        .then((cardData) => {
+          card.updateLikes(cardData);
+        })
+        .catch((error) => {
+          console.error(`Не удалось лайкнуть: ${error}`);
+        });
     }
   }, cardTemplate);
   return card.render();
@@ -59,45 +65,37 @@ const api = new Api({
   }
 });
 
-const userData = await api.getCurrentUser()
-  .catch((error) => console.error(`Ошибка получения данных пользователя: ${error}`));
-const initialCards = await api.getInitialCards()
-  .catch((error) => console.error(`Ошибка получения карточек: ${error}`));
+const [userData, initialCards] = await Promise.all([api.getCurrentUser(), api.getInitialCards()])
+  .catch((error) => console.error(`Ошибка получения начальных пользователя: ${error}`));
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
   descriptionSelector: '.profile__description',
   avatarSelector: '.profile__avatar',
-  userInfo: userData,
-  async sendUserData(avatar, info) {
-    let newData = null;
-    if (avatar !== null) {
-      newData = await api.sendUpdateAvatar(avatar);
-    }
-    if (info !== null) {
-      newData = await api.sendUpdateUser(info.name, info.desc);
-    }
-    return newData;
-  }
+  userInfo: userData
 });
 userInfo.render();
 
 const cardsSection =  new Section({
   items: initialCards.reverse(),
   renderer(data) {
-    cardsSection.addItem(createCard(data, userInfo.getUserInfo()._id));
+    cardsSection.addItem(createCard(data, userInfo.getId()));
   }
 }, '.cards');
 cardsSection.renderItems();
 
 const profileEditPopup = new PopupWithForm({
   selector: '#popup-edit-profile',
-  handleSubmit({ username, description }) {
-    return userInfo.setUserInfo({ info: { name: username.value, desc: description.value }})
-      .then(() => profileEditPopup.close())
+  handleSubmit({ username, description }, handleFinish) {
+    api.sendUpdateUser(username, description)
+      .then((newUserInfo) => {
+        userInfo.setUserInfo(newUserInfo);
+        profileEditPopup.close();
+      })
       .catch((error) => {
         console.error(`Ошибка обновления данных пользователя: ${error}`);
-      });
+      })
+      .finally(handleFinish);
   },
   handleOpen({ username, description }) {
     const { name, about } = userInfo.getUserInfo();
@@ -110,12 +108,16 @@ initPopup('.profile__button-edit', profileEditPopup);
 
 const avatarEditPopup = new PopupWithForm({
   selector: '#popup-edit-avatar',
-  handleSubmit({ avatar }) {
-    return userInfo.setUserInfo({ avatar: avatar.value})
-      .then(() => avatarEditPopup.close())
+  handleSubmit({ avatar }, handleFinish) {
+    api.sendUpdateAvatar(avatar)
+      .then((newUserInfo) => {
+        userInfo.setUserInfo(newUserInfo);
+        avatarEditPopup.close();
+      })
       .catch((error) => {
         console.error(`Ошибка обновления аватара: ${error}`);
-      });
+      })
+      .finally(handleFinish);
   },
   initValidator,
 });
@@ -124,15 +126,16 @@ initPopup('.profile__edit-avatar-btn', avatarEditPopup);
 const addCardPopup = new PopupWithForm({
   selector: '#popup-add-card',
   submitBusyText: 'Добавление...',
-  handleSubmit({ 'place-name': name, 'place-image': image }) {
-    return api.sendNewCard(name.value, image.value)
+  handleSubmit({ 'place-name': name, 'place-image': image }, handleFinish) {
+    api.sendNewCard(name, image)
       .then((newCard) => {
-        cardsSection.addItem(createCard(newCard, userInfo.getUserInfo()._id));
+        cardsSection.addItem(createCard(newCard, userInfo.getId()));
         addCardPopup.close();
       })
       .catch((error) => {
         console.error(`Ошибка отправки карточки: ${error}`);
-      });
+      })
+      .finally(handleFinish);
   },
   initValidator,
 });
