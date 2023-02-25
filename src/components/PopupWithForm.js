@@ -9,7 +9,7 @@ export default class PopupWithForm extends Popup {
     this._submitBusyText = submitBusyText;
 
     this._formEl = this._popupEl.querySelector('.popup__form');
-    this._inputs = this._formEl.querySelectorAll('.popup__input');
+    this._inputs = Array.from(this._formEl.querySelectorAll('.popup__input'));
 
     this._captionEl = this._popupEl.querySelector('.popup__view-caption');
 
@@ -17,7 +17,7 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    return Object.fromEntries(Array.from(this._inputs).map((el) => [el.name, el.value]));
+    return Object.fromEntries(this._inputs.map((el) => [el.name, el.value]));
   }
 
   setEventListeners() {
