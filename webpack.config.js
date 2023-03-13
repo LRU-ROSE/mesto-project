@@ -4,8 +4,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: { main: './src/index.js' },
-    output: {
+  entry: { main: './src/index.js' },
+  output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
     publicPath: ''
@@ -43,5 +43,8 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
-  ]
+  ],
+  experiments: {
+    topLevelAwait: true,
+  },
 };
