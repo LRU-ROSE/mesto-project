@@ -25,22 +25,22 @@
 
 Перейдите в папку, где будет развернут проект. После чего клонируйте его с GitHub:
 ```sh
-`$ git clone https://github.com/LRU-ROSE/mesto-project.git`
+git clone https://github.com/LRU-ROSE/mesto-project.git
 ```
 
 Переходим в папку с проектом и устанавливаем компоненты:
 ```sh
-`$ npm install`
+npm install
 ```
 
 После запускаем сборку проекта:
 ```sh
-`$ npm run build`
+npm run build
 ```
 
 Запустить проект на локальном сервере:
 ```sh
-`$ npm run dev`
+npm run dev
 ```
 ## Ссылки:
 
